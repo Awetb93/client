@@ -1,4 +1,5 @@
-import { ApolloClient, ApolloProvider, createHttpLink,InMemoryCache } from "@apollo/client"
+import { ApolloClient, ApolloProvider, ApolloLink, InMemoryCache } from "@apollo/client"
+import {createUploadLink} from "apollo-upload-client"
 import { setContext } from "@apollo/client/link/context";
 import { useReducer, createContext } from "react"
 import { BrowserRouter} from "react-router-dom"
@@ -6,13 +7,13 @@ import Header from "./utils/headers"
 import Top from "./components/header"
 import { CssBaseline, Container ,StylesProvider} from "@material-ui/core"
 import "./styles/app.scss"
-const httplink = createHttpLink({ uri: "http://localhost:5000/graphql" })
+const uploadlink = createUploadLink({ uri: "http://localhost:5000/graphql" })
 const authLink = setContext((_, { headers }) => {
   const token =JSON.parse(localStorage.getItem("user"))
  
   return { headers: { ...headers, authorization: token ? `Bearer ${token.token}` : "", } }
 })
-const client = new ApolloClient({ link:authLink.concat(httplink), cache: new InMemoryCache() })
+const client = new ApolloClient({ link:ApolloLink.from([authLink,uploadlink]), cache: new InMemoryCache() })
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case "SignUp":
@@ -32,8 +33,7 @@ function App() {
       <context.Provider value={{ state, dispatch }}>
           <StylesProvider injectFirst>
           <CssBaseline>
-            <Container >
-             
+            <Container >       
               <BrowserRouter >
                   <Top />
                  <Header/>

@@ -14,16 +14,19 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SimpleList({items}) {
+export default function SimpleList({items,onclick}) {
     const classes = useStyles();
     const history=useHistory()
-    let renderedList;
+  let renderedList;
+  const onsubmit = () => {
+    onclick("")
+  }
     if (items) { 
         console.log(items)
         if (items.search.length > 0) {
             renderedList = items.search.map((item, index) => {
-                return (
-         <ListItem button key={index} onClick={()=>history.push({pathname:`/home/:id/profile/${item.id}`,})}>
+              return (
+                <ListItem button key={index} onClick={() => { history.push(`/profile/${item.id}`); onsubmit() }}>
                         <ListItemText primary={item.name} />
         </ListItem>
                 

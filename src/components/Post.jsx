@@ -14,7 +14,16 @@ export default function Post({ posts }) {
                     <Avatar onClick={() =>history.push(`/profile/${post.user.id}`) } style={{cursor:"pointer"}}>{post.user.name.split(" ")[0].split("")[0]}</Avatar>
                     <CardHeader subheader={Moment(parseInt(post.createdAt)).fromNow()} />
                    </div>
-                    <CardContent>{post.post}</CardContent>   
+                    <CardContent>
+                        <div>
+                         {post.post}   
+                        </div>
+                        {post.picUrl && (<div>
+                            <img src={post.picUrl} style={{width:"60%",height:"50%"}} alt={post.picName} />
+                        </div>)}
+                    
+                    </CardContent>
+
                     <Comment state={ post} />
             </Card>)
         })

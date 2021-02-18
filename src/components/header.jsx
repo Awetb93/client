@@ -3,7 +3,6 @@ import { InputBase, Grid,} from "@material-ui/core";
 import { Link } from "react-router-dom"
 import List from "./List"
 import { gql,useLazyQuery } from "@apollo/client"
-
 export const getdata = gql`{
   posts{
     post createdAt id user{
@@ -44,10 +43,12 @@ export default function Home() {
    }
    
     
-  },[term,search])
+  }, [term, search])
+  const onsubmit = (val) => {
+       setTerm(val)
+     }
     return (
         <>
-            
             {loc && <Grid container style={{ width: "100%" }} className="list">
                 <Grid item xs={12} sm={4}>
                     <div>{loc.name}</div>
@@ -57,7 +58,7 @@ export default function Home() {
                     <div><InputBase variant="outlined" size="small"
                         placeholder=" Search…" onChange={(e) => setTerm(e.target.value)}
                         value={term} />
-                        {term &&  <List items={res.data} />} 
+                        {term &&  <List items={res.data} onclick={onsubmit} />} 
             
                     </div>
                 </Grid>

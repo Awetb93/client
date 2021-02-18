@@ -7,7 +7,7 @@ export default function Headers() {
         <Switch>
         <Route exact path='/' component={Signup}/>
         <Route exact path='/home/:id' component={Home}/>
-        <Route exact path='/profile' component={Profile}/>
+        <Route exact path='/profile/:id' component={Profile}/>
                 
 </Switch>
     )
