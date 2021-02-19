@@ -62,7 +62,8 @@ export default function Home() {
             
         <Grid  container style={{marginTop:"20px"}} >
                 <Grid item sm={4}></Grid>
-                <Grid item sm={6}><Post posts={data}/></Grid>
+          <Grid item container xs={12} sm={6}>
+            <Post posts={data}/></Grid>
                   <Grid item sm={2}></Grid>
             </Grid>
             </>
