@@ -2,6 +2,7 @@ import {useEffect,useState} from "react"
 import { InputBase, Grid,} from "@material-ui/core";
 import { Link } from "react-router-dom"
 import List from "./List"
+import SignOut from "./Signout"
 import { gql,useLazyQuery } from "@apollo/client"
 export const getdata = gql`{
   posts{
@@ -64,7 +65,8 @@ export default function Home() {
                 </Grid>
                 <Grid item sm={2}></Grid>
                 <Grid item xs={12} sm={2}  >
-                    <Link to={`/profile/${loc.id}`}>Profile</Link>
+            <Link to={`/profile/${loc.id}`}>Profile</Link>
+            <SignOut id={ loc.id}/>
                 </Grid>
             </Grid>}
             

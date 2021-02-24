@@ -19,18 +19,19 @@ const reducer = (state = {}, action) => {
     case "SignUp":
       return { ...state, SignUp: action.payload }
     case "SignIn":
-      return {...state,isSignIn:true,user:action.payload}
+      return { ...state, isSignIn: true, user: action.payload }
+    case "setlocal":
+      return{...state,loc:action.payload}
     default:
       return state
   }
 }
 export const context=createContext({})
 function App() {
-  const [state, dispatch] = useReducer(reducer, { SignUp: true, isSignIn: false, user:{} })
-
+  const [state, dispatch] = useReducer(reducer, { SignUp: true, isSignIn: false, user: {}, loc: {} })
   return (
     <ApolloProvider client={client}>
-      <context.Provider value={{ state, dispatch }}>
+      <context.Provider value={{ state, dispatch }}> 
           <StylesProvider injectFirst>
           <CssBaseline>
             <Container >       
@@ -41,7 +42,7 @@ function App() {
           </Container>
           </CssBaseline>
           </StylesProvider>
-       </context.Provider>
+       </context.Provider> 
       </ApolloProvider>
   )
 }

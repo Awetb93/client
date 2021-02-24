@@ -20,8 +20,11 @@ export default function SignIn() {
     const { dispatch } = useContext(context)
     const [signIn, { error }] = useMutation(SignInMutation, {
         errorPolicy: "all", onCompleted(data) {
+            local(data.signIn)
+            const loc = JSON.parse(localStorage.getItem("user"))
+            dispatch({type:"setlocal",payload:loc})
             history.push(`/home/${data.signIn.id}`)
-               local(data.signIn)
+              
         }
     })
  

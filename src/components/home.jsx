@@ -1,7 +1,8 @@
 import { Grid, TextField, Button, IconButton, } from "@material-ui/core";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { Controller, useForm } from "react-hook-form"
-import { gql, useQuery,useMutation } from "@apollo/client"
+import { gql, useQuery, useMutation } from "@apollo/client"
+
 import Post from "./Post";
 export const getdata = gql`{
   posts{
@@ -37,6 +38,7 @@ export default function Home() {
       addPost({ variables: {post:val.post,file },refetchQueries:[{query:getdata}] })
   
   }
+
     return (
         <>
        <Grid  container style={{marginTop:"20px"}} >

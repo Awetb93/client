@@ -17,13 +17,22 @@ mutation($name:String!,$email:String!,$password:String!){
 export default function SignUp() {
     const methods = useForm()
     const history = useHistory()
+    const loc = JSON.parse(localStorage.getItem("user"))
+    console.log(loc)
+    if (loc) {
+        history.push(`home/${loc.id}`)
+    }
+    const { state, dispatch } = useContext(context)
     const [signUp, {  error }] = useMutation(SignUpMutation, {
         errorPolicy: "all", onCompleted(data) {
+            local(data.signUp)
+            const loc = JSON.parse(localStorage.getItem("user"))
+            dispatch({type:"setlocal",payload:loc})
             history.push(`/home/${data.signUp.id}`)
-          local(data.signUp)
+         
     }})
     const { control, handleSubmit,reset } = methods
-    const { state, dispatch } = useContext(context)
+    
     const { SignUp }=state
     const onsubmit = val => {
         signUp({ variables: { ...val } })
